@@ -15,16 +15,16 @@ class BaseballGame {
         
         // while true 공부
         while true {
-            print("서로 다른 3자리 숫자를 입력해 주세요: ", terminator: "")
+            print("서로 다른 세 자리 숫자를 입력해 주세요: ", terminator: "")
             // 1. 유저에게 입력값을 받음, 옵셔널 바인딩 / 잘못된 값일 경우 멘트
-            guard let input = readLine(), let userNumber = Int(input) else {
-                         print("잘못된 입력입니다. 숫자를 입력해주세요.")
+            guard let input = readLine(), input.count == 3, let userNumber = Int(input) else {
+                         print("잘못된 입력입니다. 세 자리 숫자를 입력해주세요.")
                          continue
                      }
             
-            // 2. 세자리가 아니거나, 0을 가지거나 / 특정 숫자가 두번 사용된 경우 (집합에 넣어서 count비교) 반복문 처음으로 돌아가기
+            // 2. 0을 가지거나 / 특정 숫자가 두번 사용된 경우 (집합에 넣어서 count비교) 반복문 처음으로 돌아가기
             let newNumbers = getDigits(of: userNumber)
-            if newNumbers.count != 3 || newNumbers.contains(0) || Set(newNumbers).count != newNumbers.count {
+            if newNumbers.contains(0) || Set(newNumbers).count != 3 {
                 print("유효하지 않은 입력입니다. 1부터 9까지의 중복되지 않는 세 자리 숫자를 입력해주세요.")
                 continue
             }
