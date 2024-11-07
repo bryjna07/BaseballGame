@@ -13,18 +13,31 @@ class BaseballGame {
         // 기록 초기화 , 시작멘트,
         print("< 게임을 시작합니다 >")
         
+        // while true 공부
         while true {
-            // 1. 유저에게 입력값을 받음
+            print("서로 다른 3자리 숫자를 입력해 주세요: ", terminator: "")
+            // 1. 유저에게 입력값을 받음, 옵셔널 바인딩 / 잘못된 값일 경우 멘트
+            guard let input = readLine(), let userNumber = Int(input) else {
+                         print("잘못된 입력입니다. 숫자를 입력해주세요.")
+                         continue
+                     }
             
-            
-            // 2. 세자리가 아니거나, 0을 가지거나 특정 숫자가 두번 사용된 경우 반복문 처음으로 돌아가기
-               
+            // 2. 세자리가 아니거나, 0을 가지거나 / 특정 숫자가 두번 사용된 경우 (집합에 넣어서 count비교) 반복문 처음으로 돌아가기
+            let newNumbers = getDigits(of: userNumber)
+            if newNumbers.count != 3 || newNumbers.contains(0) || Set(newNumbers).count != newNumbers.count {
+                print("유효하지 않은 입력입니다. 1부터 9까지의 중복되지 않는 세 자리 숫자를 입력해주세요.")
+                continue
+            }
             
             // 3. 정답과 유저의 입력값을 비교하여 스트라이크/볼을 출력하기
-            
+            let (strikes, balls) = compare(answer, with: newNumbers)
+                print("\(strikes) 스트라이크, \(balls) 볼")
         
             // 만약 정답이라면 break 호출하여 반복문 탈출
-            
+            if strikes == 3 {
+                print("정답입니다! 축하합니다!")
+                break
+            }
         }
     }
     func makeAnswer() -> [Int] {
