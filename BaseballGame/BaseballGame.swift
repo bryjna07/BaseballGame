@@ -47,7 +47,21 @@ class BaseballGame {
     }
     
     // 정답과 사용자 입력 비교하여 스트라이크와 볼 계산
-    
+    func compare(_ answer: [Int], with userInput: [Int]) -> (strikes: Int, balls: Int) {
+        var strikes = 0
+        var balls = 0
+        
+        // 공부 필요
+        for (index, element) in userInput.enumerated() {
+            if element == answer[index] {
+                strikes += 1
+            } else if answer.contains(element) {
+                balls += 1
+            }
+        }
+        
+        return (strikes, balls)
+    }
 }
 
 
